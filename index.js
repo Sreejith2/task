@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   };
   res.render("home", { taskData });
 });
-app.get("/task2", (req, res) => {
+app.get("/task1", (req, res) => {
   res.render("task2");
 });
 
