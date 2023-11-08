@@ -8,13 +8,22 @@ app.set('view engine', 'hbs');
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  const taskData = {
-    task1: "https://helloworld-p5of.onrender.com",
-  };
-  res.render("home", { taskData });
+  res.render("home");
 });
 app.get("/task1", (req, res) => {
+  res.render("task1");
+});
+app.get("/task2", (req, res) => {
   res.render("task2");
+});
+app.get("/task2/contact", (req, res) => {
+  res.render("contact");
+});
+app.get("/task2/about", (req, res) => {
+  res.render("about");
+});
+app.get("/task2/blog", (req, res) => {
+  res.render("blog");
 });
 
 
