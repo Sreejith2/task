@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+</head>
+<body>
+    <form method="post" action="/task3">
+        <label for="height">Height:</label>
+        <input type="number" id="height" name="height" placeholder="Enter height here" required>
+        
+        <label for="unit">Unit:</label>
+        
+        <input type="radio" id="in" name="unit" value="in" checked>
+        <label for="in">inches</label>
+
+        <input type="radio" id="ft" name="unit" value="ft">
+        <label for "ft">feet</label>
+        
+        <br>
+        
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" placeholder="Enter weight here" required>
+        
+        <button type="submit">Calculate BMI</button>
+    </form>
+
+    <div id="bmiResult">
+        BMI: <span id="bmiValue">{{bmi}}</span>
+    </div>
+</body>
+</html>
+
+
