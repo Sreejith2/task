@@ -1,13 +1,36 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
+
+const dbUrl = "mongodb+srv://sreejithn2002:Test123@cluster0.2vilcq8.mongodb.net/?retryWrites=true&w=majority";
+const collectionName = "bhooti";
+mongoose.connect(dbUrl)
+  .then(() => {
+    console.log('Connected to the MongoDB database');
+  })
+  .catch((err) => {
+    console.error('Failed to connect to the database: ', err);
+  });
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.json());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
 app.use(express.json());
+
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String },
+  dob: { type: Date, required: true },
+  address: { type: String, required: true },
+  pincode: { type: String, required: true },
+  phone: { type: String, required: true }
+});
+
+const User = mongoose.model('users', userSchema,collectionName);
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -32,14 +55,19 @@ app.get("/task3", (req, res) => {
 });
 
 app.post("/task3", (req, res) => {
-  let height = parseFloat(req.body.height);
-  let unit = req.body.unit;
-  let weight = parseFloat(req.body.weight);
+  console.log(req.body);
+  let height,h;
+  const unit = req.body.unit;
+  const weight = parseFloat(req.body.weight);
 
   if (unit === 'cm') {
+    height = parseFloat(req.body.cm);
     height *= 0.01;
-  } else if (unit === 'ft') {
-    height *= 0.3048;
+  } else {
+    h = parseInt(req.body.feet);
+    let inches = parseFloat(req.body.inches);
+    height = h * 0.3048 + inches * 0.0254;
+    console.log(height);
   }
 
   const bmi = weight / (height * height);
@@ -49,17 +77,18 @@ app.post("/task3", (req, res) => {
   });
 });
 
+
 app.get("/task4", (req, res) => {
   res.render("task4");
 });
 
-app.post("/task4",(req,res)=>{
-  const fname="",lname="";
-  let name = req.body.name;
-  let dob = req.body.dob;
-  let address = req.body.address;
-  let pin = req.body.pincode;
-  let phone = req.body.phone;
+app.post("/task4",async (req,res)=>{
+  let fname="";let lname="";
+  const name = req.body.name;
+  const dob = req.body.dob;
+  const address = req.body.address;
+  const pin = req.body.pincode;
+  const phone = req.body.phone;
   const names = name.split(" ");
   if(names.length>1){
     fname = names.slice(0, -1).join(' ');
@@ -68,13 +97,33 @@ app.post("/task4",(req,res)=>{
     fname=name;
     lname="";
   }
-  console.log(name,dob,address,pin,phone);
+  const newUser = new User({
+    username:name,
+    firstName:fname,
+    lastName:lname,
+    dob:dob,
+    address:address,
+    pincode:pin,
+    phone:phone
+  });
+  try {
+    await newUser.save();
+    console.log('User data inserted successfully:', newUser);
+  } catch (err) {
+    console.error('Failed to insert user data: ', err);
+    res.status(500).send('Failed to insert user data');
+  }
 });
 
-
-
-
-
+app.get("/task4/view", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.render("view", { users }); 
+  } catch (err) {
+    console.error('Failed to retrieve user data: ', err);
+    res.status(500).send('Failed to retrieve user data');
+  }
+});
 
 app.listen(3000, () => {
   console.log(`server started at http://localhost:${port}`);
