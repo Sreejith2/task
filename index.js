@@ -6,13 +6,13 @@ const port = 3000;
 
 const dbUrl = "mongodb+srv://sreejithn2002:Test123@cluster0.2vilcq8.mongodb.net/?retryWrites=true&w=majority";
 const collectionName = "bhooti";
-mongoose.connect(dbUrl)
-  .then(() => {
-    console.log('Connected to the MongoDB database');
-  })
-  .catch((err) => {
-    console.error('Failed to connect to the database: ', err);
-  });
+// mongoose.connect(dbUrl)
+//   .then(() => {
+//     console.log('Connected to the MongoDB database');
+//   })
+//   .catch((err) => {
+//     console.error('Failed to connect to the database: ', err);
+//   });
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.json());
@@ -20,17 +20,17 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
 app.use(express.json());
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String },
-  dob: { type: Date, required: true },
-  address: { type: String, required: true },
-  pincode: { type: String, required: true },
-  phone: { type: String, required: true }
-});
+// const userSchema = new mongoose.Schema({
+//   username: { type: String, required: true },
+//   firstName: { type: String, required: true },
+//   lastName: { type: String },
+//   dob: { type: Date, required: true },
+//   address: { type: String, required: true },
+//   pincode: { type: String, required: true },
+//   phone: { type: String, required: true }
+// });
 
-const User = mongoose.model('users', userSchema,collectionName);
+// const User = mongoose.model('users', userSchema,collectionName);
 
 app.get("/", (req, res) => {
   res.render("home");
