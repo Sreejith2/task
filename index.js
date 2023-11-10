@@ -64,7 +64,7 @@ app.post("/task3", (req, res) => {
     height = parseFloat(req.body.cm);
     height *= 0.01;
   } else {
-    h = parseInt(req.body.feet);
+    h = parseInt(req.body.feets);
     let inches = parseFloat(req.body.inches);
     height = h * 0.3048 + inches * 0.0254;
     console.log(height);
