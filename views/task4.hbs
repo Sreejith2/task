@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task4-Insert Data-Sreejith</title>
+    <title>Task4-Sreejith</title>
 </head>
+
 <body>
+
     <nav>
         <ul>
-            <li><a href="/task4">Insert</a></li>
-            <li><a href="task4/view">View</a></li>
+            <li>
+                <a href="/task4">Insert</a>
+            </li>
+            <li>
+                <a href="/task4/view">View</a>
+            </li>
         </ul>
     </nav>
-    
-    <div id="insert-page">
-        <h2>Insert Data</h2>
-        <form method="post">
-            <label for="name">Name:</label>
-            <input type="text" name="name" required><br>
 
-            <label for="dob">DOB:</label>
-            <input type="date" name="dob" required><br>
+    <h1>Insert Data</h1>
+    <form action="/task4/submit" method="post">
+        <label>UserName</label><br>
+        <input type="text"  name="name" placeholder="Enter Username" required>
+        <br>
+        <label>Date Of Birth</label><br>
+        <input type="date"  name="dob" required><br>
 
-            <label for "address">Address:</label>
-            <input type="text" name="address" required><br>
+        <label>Address</label><br>
+        <input  name="address" placeholder="ENter address here" required></input><br>
 
-            <label for="pincode">PIN Code:</label>
-            <input type="text" name="pincode" required><br>
+        <label>PIN</label><br>
+        <input type="text"  name="pin" pattern="[0-9]{6}" placeholder="Enter pincode here" required><br>
 
-            <label for="phone">Phone Number:</label>
-            <input type="text" name="phone" required><br>
+        <label>Phone Number:</label><br>
+        <input type="tel" name="phone" pattern="[0-9]{10}" placeholder="Enter Phone Number" required><br>
 
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
 </body>
-</html>
 
+</html>
