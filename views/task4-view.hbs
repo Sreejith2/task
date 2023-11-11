@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task4-Sreejith</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="/task4">Insert</a>
+            </li>
+            <li>
+                <a href="/task4/view">View</a>
+            </li>
+        </ul>
+    </nav>
+
+    <h1>View Data</h1>
+
+    <table border="1">
+        <tr>
+            <th>Sl. No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>DOB</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Phone</th>
+        </tr>
+        {{#each users}}
+        <tr>
+            <td>{{@index}}</td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td>{{dob}}</td>
+            <td>{{address}}</td>
+            <td>{{pincode}}</td>
+            <td>{{phone}}</td>
+        </tr>
+        {{/each}}
+    </table>
+</body>
+
+</html>
