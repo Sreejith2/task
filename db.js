@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dbUrl = "mongodb+srv://sreejithn2002:Test123@cluster0.2vilcq8.mongodb.net/?retryWrites=true&w=majority";
-const collectionName = "bhooti";
+
 
 mongoose.connect(dbUrl)
   .then(() => {
@@ -25,7 +25,7 @@ mongoose.connect(dbUrl)
     slink:{type:String,required:true}
   })
 
-  const User = mongoose.model('users', userSchema,collectionName);
-  const Link = mongoose.model('links', linkSchema,collectionName);
+  const User = mongoose.model('users', userSchema);
+  const Link = mongoose.model('links', linkSchema);
   module.exports = {User,Link};
   
