@@ -98,12 +98,26 @@ app.post("/task3", (req, res) => {
 
   })
 
-  app.get('/task4/view',async (req,res)=>{
+app.get('/task4/view', async (req, res) => {
+    const users = await User.find();
+    const pageCount = Math.ceil(users.length / 10);
+    let page = parseInt(req.query.p) || 1;
 
-        const users = await User.find()
+    if (page > pageCount) {
+        page = pageCount;
+    }
 
-        res.render('task4-view', { users})
-  })
+    const prevPage = (page > 1) ? page - 1 : null;
+    const nextPage = (page < pageCount) ? page + 1 : null;
+
+    res.render("task4-view", {
+        "page": page,
+        "pageCount": pageCount,
+        "users": users.slice(page * 10 - 10, page * 10),
+        "prevPage": prevPage,
+        "nextPage": nextPage
+    });
+});
 
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
