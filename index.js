@@ -156,6 +156,11 @@ app.post("/task5/submit",async (req,res)=>{
     }
   }
 })
+app.get("/task5/:link",(req,res)=>{
+  const link = req.params.link;
+  console.log(link);
+  res.status(200).redirect(`https://${link}`);
+})
 
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
