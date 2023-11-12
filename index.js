@@ -140,7 +140,7 @@ app.post("/task5/submit",async (req,res)=>{
   const existingLink = await Link.findOne({link:link});
   if(existingLink){
     const shortLink = existingLink.slink;
-    res.render("task5",{shortLink:`${protocol}://${host}/${shortLink}`})
+    res.render("task5",{realLink:link,shortLink:`${protocol}://${host}/${shortLink}`})
   }else{
     const shortLink = generateShortLink();
     const newLink = new Link({
@@ -150,7 +150,7 @@ app.post("/task5/submit",async (req,res)=>{
     try{
       await newLink.save()
       console.log("New Url saved successfully");
-      res.render("task5",{shortLink:`${protocol}://${host}/${shortLink}`})
+      res.render("task5",{realLink:link,shortLink:`${protocol}://${host}/${shortLink}`})
     }catch(err){
       console.log(err);
     }
