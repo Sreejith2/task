@@ -82,7 +82,7 @@ app.post("/task3", (req, res) => {
     const newUser = new User({
         username:fullName,
         firstName:firstName||fullName,
-        lastName:lastName:names.length===1?"":lastName,
+        lastName:names.length===1?"":lastName,
         dob:dob,
         address:address,
         pincode:pin,
