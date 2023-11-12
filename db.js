@@ -20,6 +20,12 @@ mongoose.connect(dbUrl)
     phone: { type: String, required: true }
   });
 
+  const linkSchema = new mongoose.Schema({
+    link:{type:String,required:true},
+    slink:{type:String,required:true}
+  })
+
   const User = mongoose.model('users', userSchema,collectionName);
-  module.exports = User;
+  const Link = mongoose.model('links', linkSchema,collectionName);
+  module.exports = {User,Link};
   
