@@ -4,7 +4,7 @@ var hbs = require('hbs')
 var path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
-const User = require('./db');
+const {Link,User} = require('./db');
 
 
 app.set('views', path.join(__dirname, 'views'));
@@ -118,6 +118,44 @@ app.get('/task4/view', async (req, res) => {
         "nextPage": nextPage
     });
 });
+
+function generateShortLink() {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  let shortLink = '';
+
+  for (let i = 0; i < 3; i++) {
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    shortLink += alphabet[randomIndex];
+  }
+  return shortLink;
+}
+
+app.get("/task5",(req,res)=>{
+  res.render("task5",{shortLink:""});
+})
+app.post("/task5/submit",async (req,res)=>{
+  const link = req.body.link;
+  const protocol=req.protocol;
+  const host = req.hostname;
+  const existingLink = await Link.findOne({link:link});
+  if(existingLink){
+    const shortLink = existingLink.slink;
+    res.render("task5",{shortLink:`${protocol}://${host}/${shortLink}`})
+  }else{
+    const shortLink = generateShortLink();
+    const newLink = new Link({
+        link:link,
+        slink:shortLink
+    });
+    try{
+      await newLink.save()
+      console.log("New Url saved successfully");
+      res.render("task5",{shortLink:`${protocol}://${host}/${shortLink}`})
+    }catch(err){
+      console.log(err);
+    }
+  }
+})
 
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
