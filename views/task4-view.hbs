@@ -43,6 +43,29 @@
         </tr>
         {{/each}}
     </table>
+
+    <div>
+        <ul style="list-style-type: none">
+                <li>
+                    <a href="/task4/view?p={{prevPage}}">Previous</a>
+                </li>
+            {{#each pages}}
+                <li>
+                    <a href="/task4/view?p={{this}}">{{this}}</a>
+                </li>
+            {{/each}}
+            <li>
+                <a href="/task4/view?p={{nextPage}}">Next</a>
+            </li>
+            <li>
+                <form action="/task4/view" method="GET">
+                    <label for="pageNumber">Go to Page: </label>
+                    <input type="number" id="pageNumber" name="p" min="1" value="{{currentPage}}" required>
+                <button type="submit">Go</button>
+            </form>
+            </li>
+        </ul>
+    </div>
 </body>
 
 </html>
