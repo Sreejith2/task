@@ -159,7 +159,7 @@ app.post("/task5/submit",async (req,res)=>{
 app.get("/task5/:link",(req,res)=>{
   const link = req.params.link;
   console.log(link);
-  res.status(200).redirect(`https://${link}`);
+  res.status(200).redirect(`${link}`);
 })
 
 app.listen(5000, () => {
