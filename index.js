@@ -182,7 +182,6 @@ app.get('/task6', (req, res) => {
                         <title>Sreejith-Task6</title>
                     </head>
                     <body>
-                        <h1>Your Page Heading</h1>
                         ${htmlContent}
                     </body>
                 </html>
