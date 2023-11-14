@@ -172,10 +172,27 @@ app.get('/task6', (req, res) => {
             res.status(500).send('Internal Server Error');
         } else {
             const htmlContent = marked(markdownContent);
-            res.send(htmlContent);
+
+            const finalHtmlOutput = `
+                <!DOCTYPE html>
+                <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Sreejith-Task6</title>
+                    </head>
+                    <body>
+                        <h1>Your Page Heading</h1>
+                        ${htmlContent}
+                    </body>
+                </html>
+            `;
+
+            res.send(finalHtmlOutput);
         }
     });
 });
+
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
 });
