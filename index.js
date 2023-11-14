@@ -1,5 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const {marked} = require('marked');
+const fs = require('fs');
 var hbs = require('hbs')
 var path = require('path');
 const app = express();
@@ -161,7 +163,19 @@ app.get("/task5/:link",(req,res)=>{
   console.log(link);
   res.status(200).redirect(`${link}`);
 })
+app.get('/task6', (req, res) => {
+    const markdownFilePath = path.join(__dirname, 'typography.md');
 
+    fs.readFile(markdownFilePath, 'utf8', (err, markdownContent) => {
+        if (err) {
+            console.error('Error reading the Markdown file:', err);
+            res.status(500).send('Internal Server Error');
+        } else {
+            const htmlContent = marked(markdownContent);
+            res.send(htmlContent);
+        }
+    });
+});
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
 });
