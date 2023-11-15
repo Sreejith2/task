@@ -7,7 +7,7 @@ var path = require('path');
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 const {Link,User} = require('./db');
-
+const grayMatter = require('gray-matter');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
