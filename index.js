@@ -166,12 +166,13 @@ app.get("/task5/:link",(req,res)=>{
 app.get('/task6', (req, res) => {
     const markdownFilePath = path.join(__dirname, 'typography.md');
 
-    fs.readFile(markdownFilePath, 'utf8', (err, markdownContent) => {
+    fs.readFile(markdownFilePath, 'utf8', (err, fileContent) => {
         if (err) {
             console.error('Error reading the Markdown file:', err);
             res.status(500).send('Internal Server Error');
         } else {
-            const htmlContent = marked(markdownContent);
+            const { data, content } = grayMatter(fileContent);
+            const htmlContent = marked(content);
 
             const finalHtmlOutput = `
                 <!DOCTYPE html>
@@ -179,7 +180,7 @@ app.get('/task6', (req, res) => {
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Sreejith-Task6</title>
+                        <title>${data.title || 'Sreejith-Task6'}</title>
                     </head>
                     <body>
                         ${htmlContent}
@@ -190,7 +191,7 @@ app.get('/task6', (req, res) => {
             res.send(finalHtmlOutput);
         }
     });
-});
+});;
 
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
