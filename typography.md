@@ -1,5 +1,6 @@
 ---
-Title: Typography
+title: Typography
+description: Sample description for the webpage
 ---
 
 # Heading 1
