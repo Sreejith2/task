@@ -164,34 +164,66 @@ app.get("/task5/:link",(req,res)=>{
   res.status(200).redirect(`${link}`);
 })
 app.get('/task6', (req, res) => {
-    const markdownFilePath = path.join(__dirname, 'typography.md');
+  const markdownFilePath = path.join(__dirname, 'typography.md');
 
-    fs.readFile(markdownFilePath, 'utf8', (err, fileContent) => {
-        if (err) {
-            console.error('Error reading the Markdown file:', err);
-            res.status(500).send('Internal Server Error');
-        } else {
-            const { data, content } = grayMatter(fileContent);
-            const htmlContent = marked(content);
+  fs.readFile(markdownFilePath, 'utf8', (err, fileContent) => {
+      if (err) {
+          console.error('Error reading the Markdown file:', err);
+          res.status(500).send('Internal Server Error');
+      } else {
+          const { data, content } = grayMatter(fileContent);
+          const htmlContent = markdownIt.render(content);
 
-            const finalHtmlOutput = `
-                <!DOCTYPE html>
-                <html lang="en">
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>${data.title || 'Sreejith-Task6'}</title>
-                    </head>
-                    <body>
-                        ${htmlContent}
-                    </body>
-                </html>
-            `;
+          const finalHtmlOutput = `
+              <!DOCTYPE html>
+              <html lang="en">
+                  <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>${data.title || 'Sreejith-Task6'}</title>
+                  </head>
+                  <ul>
+                      <a href="/">Home</a>
+                      <a href="/task6/edit">Edit</a>
+                  </ul>
+                  <body>
+                      ${htmlContent}
+                  </body>
+              </html>
+          `;
 
-            res.send(finalHtmlOutput);
-        }
-    });
-});;
+          res.send(finalHtmlOutput);
+      }
+  });
+});
+
+app.get("/task6/edit",(req,res)=>{
+  const markdownFilePath = path.join(__dirname, 'typography.md');
+  fs.readFile(markdownFilePath, 'utf8', (err, fileContent) => {
+    if (err) {
+        console.error('Error reading the Markdown file:', err);
+        res.status(500).send('Internal Server Error');
+    } else {
+        const { data, content } = grayMatter(fileContent);
+        res.render("task6-edit",{markdownContent:content});
+    }
+  });
+});
+
+app.post('/task6/edit', async (req, res) => {
+  const markdownFilePath = path.join(__dirname, 'typography.md');
+
+  try {
+    const updatedContent = req.body.markdownContent;
+
+    await writeFile(markdownFilePath, updatedContent, 'utf8');
+
+    res.redirect('/task6');
+  } catch (error) {
+    console.error('Error updating the Markdown file:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.listen(5000, () => {
     console.log("server listening at http://localhost:5000");
