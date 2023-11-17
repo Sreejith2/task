@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const {marked} = require('marked');
+const util = require('util');
 const fs = require('fs');
 var hbs = require('hbs')
 var path = require('path');
@@ -8,6 +9,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 const {Link,User} = require('./db');
 const grayMatter = require('gray-matter');
+const writeFile = util.promisify(fs.writeFile);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
