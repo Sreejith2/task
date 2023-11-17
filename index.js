@@ -196,7 +196,7 @@ app.get('/task6', (req, res) => {
                   <li><a href="/">Home</a></li>
                   <li><a href="/task6/edit">Edit</a></li>
                 </ul>
-                <p>${data.description}||'No description'</p>
+                <p>${data.description||'No description'}</p>
               </header>
               <main>
                 ${htmlContent}
