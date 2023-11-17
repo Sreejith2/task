@@ -185,18 +185,22 @@ app.get('/task6', (req, res) => {
           const finalHtmlOutput = `
               <!DOCTYPE html>
               <html lang="en">
-                  <head>
-                      <meta charset="UTF-8">
-                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                      <title>${data.title || 'Sreejith-Task6'}</title>
-                  </head>
-                  <ul>
-                      <a href="/">Home</a>
-                      <a href="/task6/edit">Edit</a>
-                  </ul>
-                  <body>
-                      ${htmlContent}
-                  </body>
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>${data.title || 'Sreejith-Task6'}</title>
+                </head>
+                <body>
+                  <header>
+                    <ul>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/task6/edit">Edit</a></li>
+                    </ul>
+                  </header>
+                  <main>
+                    ${htmlContent}
+                  </main>
+                </body>
               </html>
           `;
 
