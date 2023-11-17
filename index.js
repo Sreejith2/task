@@ -1,6 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-const {marked} = require('marked');
+const markdownIt = require('markdown-it')({
+  html: true,
+  breaks: true,
+  linkify: true,
+  typographer: true,
+}).use(require('markdown-it-table-of-contents'))
+  .use(require('markdown-it-footnote'));
 const util = require('util');
 const fs = require('fs');
 var hbs = require('hbs')
