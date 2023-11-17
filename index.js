@@ -188,6 +188,7 @@ app.get('/task6', (req, res) => {
             <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <meta name="description" content=${data.description||'scripttags'}>
               <title>${data.title || 'Sreejith-Task6'}</title>
             </head>
             <body>
@@ -196,7 +197,6 @@ app.get('/task6', (req, res) => {
                   <li><a href="/">Home</a></li>
                   <li><a href="/task6/edit">Edit</a></li>
                 </ul>
-                <p>${data.description||'No description'}</p>
               </header>
               <main>
                 ${htmlContent}
