@@ -183,25 +183,26 @@ app.get('/task6', (req, res) => {
           const htmlContent = markdownIt.render(content);
 
           const finalHtmlOutput = `
-              <!DOCTYPE html>
-              <html lang="en">
-                <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>${data.title || 'Sreejith-Task6'}</title>
-                </head>
-                <body>
-                  <header>
-                    <ul>
-                      <li><a href="/">Home</a></li>
-                      <li><a href="/task6/edit">Edit</a></li>
-                    </ul>
-                  </header>
-                  <main>
-                    ${htmlContent}
-                  </main>
-                </body>
-              </html>
+               <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>${data.title || 'Sreejith-Task6'}</title>
+            </head>
+            <body>
+              <header>
+                <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/task6/edit">Edit</a></li>
+                </ul>
+                <p>${data.description}||'No description'</p>
+              </header>
+              <main>
+                ${htmlContent}
+              </main>
+            </body>
+          </html>
           `;
 
           res.send(finalHtmlOutput);
@@ -216,8 +217,7 @@ app.get("/task6/edit",(req,res)=>{
         console.error('Error reading the Markdown file:', err);
         res.status(500).send('Internal Server Error');
     } else {
-        const { data, content } = grayMatter(fileContent);
-        res.render("task6-edit",{markdownContent:content});
+        res.render("task6-edit",{Content:fileContent});
     }
   });
 });
